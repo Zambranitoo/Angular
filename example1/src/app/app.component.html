@@ -47,12 +47,12 @@
             <div class="card-header">Product List</div>
             <div class="card-body text-primary">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" *ngIf="products && products.length">
                         <thead>
                             <tr>
                                 <th>
                                     <button class="btn btn-primary">
-                                        <i class="fa fa-eye"></i>
+                                        <i-bs name="eye-fill" width="24px" height="24px"></i-bs>
                                         Image
                                     </button>
                                 </th>
@@ -63,7 +63,13 @@
                                 <th>Rating</th>
                             </tr>
                         </thead>
-                        <tr>
+                        <tr *ngFor="let product of products">
+                            <td><img src="{{product.imageUrl}}" title="Product Image" width="100"></td>
+                            <td>{{product.productName}}</td>
+                            <td>{{product.productCode}}</td>
+                            <td>{{product.releaseDate}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.starRating}}</td>
                         </tr>
                     </table>
                 </div>
