@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { IProduct } from './iproduct';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,41 @@ import { IProduct } from './iproduct';
 })
 export class AppComponent {
   title = 'example1';
+  _listFilter!: string;
+  filteredProducts: IProduct[] = [];
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string){
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  }
+
+  performFilter(filterBy: string): IProduct[]{
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter(
+      (product: IProduct) =>
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+    );
+  }
+
+  clearFilter(inputElement: HTMLInputElement): void {
+    this.listFilter = '';
+    inputElement.focus();
+}
+
+setFilter(value: string, inputElement: HTMLInputElement): void {
+    this.listFilter = value;
+    inputElement.value = value;
+}
+
+  ngOnInit():void{
+    this.filteredProducts = this.products;
+  }
+
+
 
   products: IProduct [] = [
     {
