@@ -54,7 +54,7 @@ setFilter(value: string, inputElement: HTMLInputElement): void {
       releaseDate: '2025-01-15',
       price: 120,
       description: 'Comfortable running shoes with air cushioning.',
-      starRating: 4.5,
+      starRating: 40,
       imageUrl: 'https://http2.mlstatic.com/D_NQ_NP_961743-MLC75953008668_052024-O-zapatillas-nike-air-max-excee-hombre-negro.webp'
     },
     {
@@ -64,8 +64,8 @@ setFilter(value: string, inputElement: HTMLInputElement): void {
       releaseDate: '2025-02-10',
       price: 140,
       description: 'High-performance shoes for long-distance running.',
-      starRating: 4.8,
-      imageUrl: 'https://http2.mlstatic.com/D_NQ_NP_803674-MLC81875655844_012025-O-zapatillas-adidas-running-response-super-mujer-negro-ji4640.webp'
+      starRating: 81,
+      imageUrl: ''
     },
     {
       productId: 3,
@@ -74,7 +74,7 @@ setFilter(value: string, inputElement: HTMLInputElement): void {
       releaseDate: '2025-03-05',
       price: 110,
       description: 'Stylish sneakers for casual wear.',
-      starRating: 4.2,
+      starRating: 100,
       imageUrl: 'https://http2.mlstatic.com/D_NQ_NP_689821-MLC81376142431_122024-O-puma-rs-trck-color-39157601.webp'
     },
     {
@@ -84,7 +84,7 @@ setFilter(value: string, inputElement: HTMLInputElement): void {
       releaseDate: '2025-04-20',
       price: 130,
       description: 'Versatile training shoes for gym and outdoor workouts.',
-      starRating: 4.6,
+      starRating: 150,
       imageUrl: 'https://home.ripley.cl/store/Attachment/WOP/D317/2000383859583/2000383859583-1.jpg'
     },
     {
@@ -94,7 +94,7 @@ setFilter(value: string, inputElement: HTMLInputElement): void {
       releaseDate: '2025-05-10',
       price: 150,
       description: 'Premium stability running shoes for overpronators.',
-      starRating: 4.7,
+      starRating: 60,
       imageUrl: 'https://sparta.cl/media/catalog/product/1/0/1012b670.700_1.png?optimize=high&bg-color=255,255,255&fit=bounds&height=550&width=600&canvas=600:550'
     },
     {
@@ -104,7 +104,7 @@ setFilter(value: string, inputElement: HTMLInputElement): void {
       releaseDate: '2025-06-01',
       price: 100,
       description: 'Classic sneakers with a retro design.',
-      starRating: 4.3,
+      starRating: 120,
       imageUrl: 'https://sparta.cl/media/catalog/product/m/l/ml574evg_2.png?optimize=high&bg-color=255,255,255&fit=bounds&height=550&width=600&canvas=600:550'
     }
   ]

@@ -1,0 +1,14 @@
+.crop {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+div {
+    cursor: pointer;
+}
+
+.material-symbols-outlined {
+    color: gold;
+    font-variation-settings: 'FILL' 1; 
+}

@@ -1,0 +1,150 @@
+<div class="weather-app min-vh-100">
+  <div class="container py-4">
+
+    <div class="text-center mb-5">
+      <h1 class="display-4 fw-bold text-white mb-3">
+        <i class="fas fa-cloud-sun me-3"></i>
+        Información Climatológica
+      </h1>
+      <p class="lead text-white-50">Consulta el clima en tiempo real</p>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-6 position-relative">
+        <div class="input-group shadow-lg">
+          <input type="text" class="form-control form-control-lg border-0 bg-white bg-opacity-90"
+            placeholder="Buscar ubicación..." [(ngModel)]="searchLocation" (input)="onInputChange()"
+            (keydown.enter)="onSearch()" style="backdrop-filter: blur(10px);">
+          <button class="btn btn-primary btn-lg px-4" type="button" (click)="onSearch()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+
+        <ul *ngIf="citySuggestions.length" class="list-group position-absolute w-100 shadow-lg"
+          style="z-index: 10; top: 100%;">
+          <li *ngFor="let city of citySuggestions; let i = index"
+            class="list-group-item list-group-item-action border-0 py-3 px-4 bg-white bg-opacity-90"
+            [class.border-bottom]="i < citySuggestions.length - 1"
+            (click)="searchLocation = city; onSearch(); citySuggestions = []"
+            style="backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.1) !important;">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-map-marker-alt text-primary me-3"></i>
+              <span class="text-dark fw-medium">{{ city }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center mb-5" *ngIf="currentWeather">
+      <div class="col-12 col-lg-10">
+        <div class="card weather-card shadow-lg border-0">
+          <div class="card-body p-5">
+            <div class="row align-items-center">
+
+              <div class="col-md-6 mb-4 mb-md-0">
+                <div class="d-flex align-items-center mb-3">
+                  <i class="fas fa-map-marker-alt text-info me-2 fs-4"></i>
+                  <h2 class="card-title fw-bold text-white mb-0">{{ currentWeather.city }}</h2>
+                </div>
+
+                <div class="text-white-50 mb-4">
+                  <p class="mb-1">
+                    <i class="fas fa-globe me-2"></i>
+                    Latitud: {{ currentWeather.latitude | number:'1.2-2' }}°
+                  </p>
+                  <p class="mb-0">
+                    <i class="fas fa-globe me-2"></i>
+                    Longitud: {{ currentWeather.longitude | number:'1.2-2' }}°
+                  </p>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <div class="weather-icon me-4">
+                    <i [class]="currentWeather.icon + ' ' + getIconColor(currentWeather.main, currentWeather.description)"
+                      class="display-1"></i>
+                  </div>
+                  <div>
+                    <div [class]="'display-1 fw-bold ' + getTemperatureClass(currentWeather.temperature)">
+                      {{ currentWeather.temperature | number:'1.1-1' }}°C
+                    </div>
+                    <p class="text-white-75 mb-0 text-capitalize fs-5">
+                      {{ currentWeather.description }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="row g-3">
+                  <div class="col-6">
+                    <div class="card weather-detail-card h-100 border-0">
+                      <div class="card-body text-center">
+                        <i class="fas fa-tint text-info fs-3 mb-2"></i>
+                        <h6 class="card-subtitle text-white-50">Humedad</h6>
+                        <h4 class="card-title text-white fw-bold">{{ currentWeather.humidity }}%</h4>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="card weather-detail-card h-100 border-0">
+                      <div class="card-body text-center">
+                        <i class="fas fa-gauge text-dark fs-3 mb-2"></i>
+                        <h6 class="card-subtitle text-white-50">Presión</h6>
+                        <h4 class="card-title text-white fw-bold">{{ currentWeather.pressure }}</h4>
+                        <small class="text-white-50">hPa</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="card weather-detail-card h-100 border-0">
+                      <div class="card-body text-center">
+                        <i class="fas fa-thermometer-half text-danger fs-3 mb-2"></i>
+                        <h6 class="card-subtitle text-white-50">Sensación</h6>
+                        <h4 class="card-title text-white fw-bold">{{ currentWeather.feelsLike | number:'1.1-1' }}°C</h4>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="card weather-detail-card h-100 border-0">
+                      <div class="card-body text-center">
+                        <i class="fas fa-wind text-primary fs-3 mb-2"></i>
+                        <h6 class="card-subtitle text-white-50">Viento</h6>
+                        <h4 class="card-title text-white fw-bold">{{ currentWeather.windSpeed }}</h4>
+                        <small class="text-white-50">km/h</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-3" *ngFor="let location of mockLocations">
+        <div class="card location-card h-100 border-0 shadow" (click)="selectLocation(location)"
+          [class]="getTemperatureBackground(location.temperature)" style="cursor: pointer; transition: all 0.3s ease;">
+          <div class="card-body text-center">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="card-title text-white fw-semibold mb-0">{{ location.city }}</h5>
+              <i [class]="location.icon + ' ' + getIconColor(location.main, location.description)" class="fs-2"></i>
+            </div>
+            <div [class]="'display-6 fw-bold mb-2 ' + getTemperatureClass(location.temperature)">
+              {{ location.temperature | number:'1.1-1' }}°C
+            </div>
+            <p class="card-text text-white-75 text-capitalize mb-0">
+              {{ location.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
